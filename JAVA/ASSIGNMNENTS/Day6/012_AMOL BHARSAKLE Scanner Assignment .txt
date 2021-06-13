@@ -1,0 +1,139 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	01/06/2021
+Topic:	  		Scanner Assignment
+Language Used:		JAVA
+##################################################################
+/*
+	1) accept two numbers and add them.
+	2) accept two numbers and subtract them.
+	3) accept two numbers and multiply them.
+	4) accept two numbers and divide them.
+	5) accept two numbers and check whether first number is greater or second number is greater or they are equal.
+	6) accept a number and check whether it is divisible by 3 or not.
+	 */
+package day6;
+
+import java.util.Scanner;
+
+public class ScannerDemo {
+
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int num1=0;
+		int num2=0;
+		
+		System.out.println("Enter any number");
+		num1=sc.nextInt();
+		if(num1%3==0) 
+			System.out.println("Divisable by 3");
+		else 
+			System.out.println("Not Divisable by 3");
+		System.out.println("-------------------------------------\n");
+		
+		System.out.println("Enter num 1 : ");
+		num1=sc.nextInt();
+		System.out.println("Enter num 2 : ");
+		num2=sc.nextInt();
+		if(num1>num2)
+			System.out.println("Greater Number is : "+num1);
+		else if(num2>num1)
+			System.out.println("Greater Number is : "+num2);
+		else
+			System.out.println("Both are equal : "+num1);
+		
+		
+		System.out.println("-------------------------------------\n");
+		
+		System.out.println("Enter num 1 : ");
+		num1=sc.nextInt();
+		System.out.println("Enter num 2 : ");
+		num2=sc.nextInt();
+		System.out.println("Addition is : "+(num1+num2));
+		System.out.println("-------------------------------------\n");
+		
+		System.out.println("Enter num 1 : ");
+		num1=sc.nextInt();
+		System.out.println("Enter num 2 : ");
+		num2=sc.nextInt();
+		System.out.println("Substraction is : "+(num1-num2));
+		System.out.println("-------------------------------------\n");
+		
+		System.out.println("Enter num 1 : ");
+		num1=sc.nextInt();
+		System.out.println("Enter num 2 : ");
+		num2=sc.nextInt();
+		System.out.println("Multiplication is : "+(num1*num2));
+		System.out.println("-------------------------------------\n");
+		
+		System.out.println("Enter num 1 : ");
+		num1=sc.nextInt();
+		System.out.println("Enter num 2(num>0) : ");
+		num2=sc.nextInt();
+		System.out.println("Division is : "+(num1/num2));
+		System.out.println("-------------------------------------\n");
+		
+		System.out.println("Enter num 1 : ");
+		num1=sc.nextInt();
+		System.out.println("Enter num 2 : ");
+		num2=sc.nextInt();
+		int bigerNum=(num1>num2)?num1:num2;
+		System.out.println("Greater Number is : "+(num1/num2));
+		System.out.println("-------------------------------------\n");
+		
+		 
+		sc.close();
+	}
+
+}
+//-----------------------------------------------------------------------------------------------
+/*
+		 1) accept marks from user. if marks are
+		> 75  display "Distinction"
+		> =60 and < =75 display "first class"
+		> =45 and < 60 display "second class"
+		>=35 and < 45 display "pass class"
+		<35 display "fail"
+		 */
+		
+
+package day6;
+
+import java.util.Scanner;
+
+public class SacnnerAssignment {
+
+	public static void main(String[] args) {
+		
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter your marks.");
+		int marks=sc.nextInt();
+		
+		if(marks>75)
+			System.out.println("Pass with Distinction");
+		else if(marks>=60 && marks<=75)
+			System.out.println("Pass with First Class");
+		else if(marks>=45 && marks<60)
+			System.out.println("Pass with Second class");
+		else if(marks>=35 && marks<45)
+			System.out.println("Pass");
+		else
+			System.out.println("Fail");
+		
+		
+		
+		//2) accept a number and display whether it is divisible by 7 or not.
+		System.out.println("Enter any number");
+		int num=sc.nextInt();
+		if(num%7==0)
+			System.out.println("Divisable by 7");
+		else
+			System.out.println("Not Divisable by 7");
+		
+		sc.close();
+	}
+
+}

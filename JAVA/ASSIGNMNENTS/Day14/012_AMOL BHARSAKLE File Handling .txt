@@ -1,0 +1,274 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	10/06/2021
+Topic:	  		Advanced Multi Threading
+Language Used:		JAVA
+##################################################################
+
+/*
+ 1)accept 10 characters from a user ( use Scanner). store these 10 characters in a file. (FileWriter)
+Now open a file and read all these characters.
+ */
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class AllInOneFileIO {
+
+	public static void main(String[] args) {
+		System.out.println("Enter File name : ");
+		Scanner sc =new Scanner(System.in);
+		
+		
+		FileIO.appendCharToFile("D:\\E DAC\\JAVA\\WORK\\Day14\\DemoIO.txt");
+		System.out.println("------------- File DATA ------------");
+		FileIO.readFile("D:\\E DAC\\JAVA\\WORK\\Day14\\DemoIO.txt");
+		
+		sc.close();
+	}
+}
+class FileIO{
+
+	public static void appendCharToFile(String filename) {
+		
+		File file=new File(filename);
+		try(FileOutputStream fos=new FileOutputStream(file,true)){
+			
+			char ch[]=FileIO.get10Chars();
+			for (int i = 0; i < ch.length; i++) {
+				fos.write((byte)ch[i]);
+			}
+			
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void readFile(String filename) {
+		File file=new File(filename);
+		try (FileInputStream fis=new FileInputStream(file)){
+			
+			byte b[]=new byte[(int)file.length()];
+			fis.read(b);
+			String s=new String(b);
+			System.out.println(s);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static char[] get10Chars() {
+		java.util.Scanner sc = new java.util.Scanner(System.in);
+		char allch[]=new char[10];
+		for (int i = 0; i < allch.length; i++) {
+			System.out.println("Enter "+i+" charcater : ");
+			allch[i]=sc.next().charAt(0);
+		}
+		sc.close();
+		return allch;
+	}
+}
+
+//---------------------------------------------------------------------------------------------------
+
+/*
+2) using RandomAccessFile class create a file.
+accept a message from user and write in a file.
+now read the message which u have stored in a file.
+now again accept a message and write in a file at the end of existing message.
+now read the entire content of file . ( u should be able to read both the messages now)
+*/
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Scanner;
+
+public class SecondFile {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		File file = new File("D:\\E DAC\\JAVA\\FILE.java");
+		try(RandomAccessFile accessFile=new RandomAccessFile(file,"rw")) {
+			
+			System.out.println("--------------------------");
+			accessFile.seek(accessFile.length());
+			byte msg[]=new byte[200];
+			System.out.println("Enter any data : ");
+			int len=System.in.read(msg);
+			accessFile.write(msg, 0, len);
+			System.out.println(" Data Written as: ");
+			
+			System.out.println("--------------------------");
+			accessFile.seek(0);
+			byte fileData[]=new byte[(int)accessFile.length()];
+			accessFile.read(fileData);
+			String fileReadData=new String(fileData);
+			System.out.println(fileReadData);
+			
+			
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		sc.close();
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------
+
+/*
+3) write a file copy program using byte streams.
+( FileOutputStream and FileInputStream )
+
+ */
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Scanner;
+
+public class CopyDataNewFile {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		
+		try {
+			File fI=new File("D:\\E DAC\\JAVA\\WORK\\Day14\\FIS.txt");
+			File fO=new File("D:\\E DAC\\JAVA\\WORK\\Day14\\FOS.txt");
+		FileInputStream fis = new FileInputStream(fI);
+		FileOutputStream fos = new FileOutputStream(fO);
+		
+		byte data[]=new byte[(int)fI.length()];
+		fis.read(data);
+		String st=new String(data);
+		System.out.println(st);
+		
+		fos.write(data, 0, data.length);
+		
+		}catch (Exception e) {System.out.println(e);}
+		
+		
+		sc.close();
+	}
+
+}
+//--------------------------------------------------------------------------------------------------
+
+/*
+4) Write a file copy program using unicode character streams.
+( FileWriter and FileReader )
+ */
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Scanner;
+
+
+
+public class CopyUsingFReader {
+
+	public static void main(String[] args) {
+		
+Scanner sc = new Scanner(System.in);
+		
+		try {
+			File fI=new File("D:\\E DAC\\JAVA\\WORK\\Day14\\FIS.txt");
+			File fO=new File("D:\\E DAC\\JAVA\\WORK\\Day14\\FOS.txt");
+		FileReader fr=new FileReader(fI);
+		FileWriter fw=new FileWriter(fO,true);
+		
+		
+		char data[]=new char[(int)fI.length()];
+		fr.read(data);
+		String st=new String(data);
+		System.out.println(st);
+		fw.write(data);
+		fw.write(st);
+		
+		}catch (Exception e) {System.out.println(e);}
+		
+		
+		sc.close();
+
+	}
+
+}
+//----------------------------------------------------------------------------------------------------------
+
+
+/*
+5) accept as many as numbers from user till he presses "0"  and write these numbers in a file. Now Open a file and read these numbers. 
+( Hint :- use Scanner class for input, FileOutputStream, DataOutputStream, FileInputStream , DataInputStream)
+ 
+ */
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class EnterNumTillZero {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		File fO=new File("D:\\E DAC\\JAVA\\WORK\\Day14\\FOS.txt");
+		try {
+
+			FileInputStream fis = new FileInputStream(fO);
+			FileOutputStream fos = new FileOutputStream(fO,true);
+			DataInputStream dis=new DataInputStream(fis);
+			DataOutputStream dos=new DataOutputStream(fos);
+			System.out.println("------------DATA WRITTING-------------");
+			int num=0;
+			do {
+				System.out.println("Enter any number to save : ");
+				num=sc.nextInt();
+				dos.writeInt(num);
+				
+			}while(num!=0);
+			
+			System.out.println("------------DATA READING-------------");
+			
+			while(dis.available()!=0) {
+				System.out.println(dis.readInt());
+			}
+			
+			
+		} catch (IOException e) { e.printStackTrace(); }
+		
+		
+		sc.close();
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

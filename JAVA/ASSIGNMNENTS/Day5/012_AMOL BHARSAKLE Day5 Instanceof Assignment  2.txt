@@ -1,0 +1,51 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	31/05/2021
+Topic:	  		instanceof assignment
+Language Used:		JAVA
+##################################################################
+/* create a hierarchy
+				Animal
+					void makeSound()
+override "makeSound()" in all the child classes.
+		Dog		Cat		Tiger
+						void hunting()
+write a class "AnimalDemo" with main and perform functions
+	perform function should be defined in such a way that it can accept any animal and invoke "makeSound()" function.
+	also make sure if "Tiger" is passed , its "hunting()" method also should be called.
+*/
+package day4;
+
+public class AnimalDemo {
+
+	public static void perform(Animal animal) {
+		animal.makeSound();
+		if(animal instanceof Tiger) {
+			Tiger tiger = (Tiger)animal;
+			tiger.hunting();
+		}
+	}
+	public static void main(String[] args) {
+		
+		System.out.println("\n-------- Tiger --------");
+		perform(new Tiger());
+		System.out.println("\n-------- Cat --------");
+		perform(new Cat());
+		System.out.println("\n-------- Dog --------");
+		perform(new Dog());
+		
+	}
+}
+abstract class Animal{
+	abstract public void makeSound();
+}
+class Dog extends Animal{
+	public void makeSound() { System.out.println(" Dog makes soud like : bho bho"); }
+}
+class Cat extends Animal{
+	public void makeSound() { System.out.println(" Cat makes soud like : Meow Meow"); }
+}
+class Tiger extends Animal{
+	public void makeSound() { System.out.println(" Tiger makes soud like : Roar "); }
+	public void hunting() { System.out.println("Tiger do hunting"); }
+}

@@ -1,0 +1,73 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	08/06/2021
+Topic:	  		Multi Threading
+Language Used:		JAVA
+##################################################################
+/*
+1.Create multi threading application by using "extends Thread"
+	create 2 threads they should display characters from A to J
+*/
+package threading;
+
+public class ThreadDemo {
+
+	public static void main(String[] args) {
+
+		MyThread thX=new MyThread();
+		thX.setName("X");
+		
+		MyThread thY=new MyThread();
+		thY.setName("Y");
+	
+		thX.start();
+		
+		thY.start();
+		
+	}
+
+}
+class MyThread extends Thread{
+	@Override
+	public void run() {
+		for (int i = 65; i < 75 ; i++) {
+			System.out.println(getName()+" : "+(char)i);
+		}
+	}
+}
+//--------------------------------------------------------------------------
+/*
+2.Above programs using "implements Runable" Interface
+*/
+package threading;
+
+public class ThreadDemo {
+
+	public static void main(String[] args) {
+
+		Thread thRun1= new Thread(new RunThread());
+		thRun1.setName("Run Interface 1");
+		
+		Thread thRun2= new Thread(new RunThread());
+		thRun2.setName("Run Interface 2");
+		
+		thRun1.start();
+		
+		thRun2.start();
+		
+	}
+
+}
+
+class RunThread implements Runnable{
+
+	@Override
+	public void run() {
+		for (int i = 65; i < 75 ; i++) {
+			System.out.println(" : "+(char)i);
+		}
+		
+	}
+	
+}
+

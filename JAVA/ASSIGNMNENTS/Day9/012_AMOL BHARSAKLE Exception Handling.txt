@@ -1,0 +1,230 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	04/06/2021
+Topic:	  		Exception Handling Assignment
+Language Used:		JAVA
+##################################################################
+/*
+ 1)Create abstract base class "Game" with 'play()' as abstract method.
+From that derive following classes.
+Football,Cricket,Tennis
+Create a class called as "GamesDemo" (public class)
+inside a main method create an array of "Game" (3 elements)
+Store objects of Football,Cricket and Tennis respectively.
+Now traverse the array and call that Cricket's play() method.
+ */
+package ExceptionHandling;
+
+
+/**
+ * @author AMOL
+ *
+ */
+public class GamesDemo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Game games[]=new Game[3];
+		games[0]=new Football();
+		games[1]=new Cricket();
+		games[2]=new Tennis();
+		
+		for (int i = 0; i < games.length/2; i++) {
+			Game g=games[i];
+			games[i]=games[games.length-1];
+		}
+		for (int i = 0; i < games.length; i++) {
+			System.out.println(games[i].play());
+		}
+
+	}
+
+}
+abstract class Game{ public abstract String play(); }
+class Football extends Game{ 
+	@Override
+	public String play() {
+		// TODO Auto-generated method stub
+		return "Football";
+	}
+}
+class Cricket extends Game{ 
+	@Override
+	public String play() {
+		// TODO Auto-generated method stub
+		return "Cricket";
+	}
+}
+class Tennis extends Game{
+	@Override
+	public String play() {
+		// TODO Auto-generated method stub
+		return "Tennis";
+	}
+}
+//-----------------------------------------------------------------------------------------------
+
+
+/*
+2) define your exception class by name "MyArithException"
+(MyArithException.java)
+define class "Calculator"   (Calculator.java)
+In this class define a function,which will accept an int and return double of it.
+e.g int caldouble(int)
+This function will check an int which is passed to it
+It will throw exception if 0 is passed or negative passed
+in case of 0 caller of this method should get error message
+"Zero not allowed" 
+in case of negative caller of this method should get error message
+"negative not allowed"
+In case of positive value it should simply return the double value.
+*/
+package ExceptionHandling;
+import java.util.Scanner;
+
+public class ArithmaticExample {
+
+	public static void main(String[] args) {
+		Scanner sc =new Scanner(System.in);
+		
+		Calculator cal=new Calculator();
+		System.out.println("Enter any number to find its square : ");
+		try {
+			System.out.println(cal.calDouble(sc.nextInt()));
+			
+		} catch (MyArithmatic e) {
+			System.out.println(e);
+		}
+		finally {
+			sc.close();
+		}
+
+	}
+
+}
+class Calculator{
+	
+	public int calDouble(int num) throws MyArithmatic {
+		if(num==0)
+			throw new MyArithmatic("Zero is not allowed...!!!");
+		else if(num<0)
+			throw new MyArithmatic("Negative is not allowed..!!!");
+		return 	num*num;
+	}
+	
+}
+
+
+class MyArithmatic extends RuntimeException{
+	
+	private static final long serialVersionUID = 1L;
+	
+	private String exceptioDef=null;
+	public MyArithmatic(String str) {
+		this.exceptioDef=str;
+	}
+	
+	@Override
+	public String toString() {
+		return exceptioDef;
+	}
+}
+//-------------------------------------------------------------------------------------
+
+/*
+3)create a package called "course"
+In this package create three classes
+a) Dac    with methods  term1()  and term2()
+b) PreDac with  method  cet()
+c) Basic   with method  finalTest()
+
+Now write application called  "VitaApp" in which call all the methods  of the above mentioned classes.
+
+*/
+package day9;
+public class VitaApp {
+
+	public static void main(String[] args) {
+		
+		new Dac().term1();
+		new Dac().term2();
+		
+		new PreDac().cet();
+		
+		new Basic().finalTest();
+
+	}
+
+}
+class Dac{
+	public void term1() {
+		System.out.println("Term1 called");
+	}
+	public void term2() {
+		System.out.println("Term2 Called");
+	}
+}
+class PreDac{
+	public void cet() {
+		System.out.println("CET called..");
+	}
+}
+class Basic{
+	public void finalTest() {
+		System.out.println("FinalTest If Called");
+	}
+}
+//----------------------------------------------------------------------
+
+/*
+4)define a class called as "Item" (Item.java)
+with members
+String itemid;
+String name;
+int cost;
+parameterized constructor which will accept above details at the time
+of creating object.
+	member function
+void display()
+which will display all the details of product
+create instances of this class and call the method display.
+
+ */
+
+package day9;
+
+public class ProductDemo {
+
+	public static void main(String[] args) {
+		Item item=new Item(1,"Mobile",12000);
+		item.display();
+		item=new Item(2,"TV",24000);
+		item.display();
+		item=new Item(3, "Amul Butter", 98);
+		item.display();
+
+	}
+
+}
+class Item{
+	private int itemId;
+	private String name;
+	private int cost;
+	
+	public Item(int itemId, String name, int cost) {
+		
+		this.itemId = itemId;
+		this.name = name;
+		this.cost = cost;
+	}
+
+	public void display() {
+		System.out.println("Item [itemId=" + itemId + ", name=" + name + ", cost=" + cost + "]"); 
+	}
+	
+	
+	
+	
+}

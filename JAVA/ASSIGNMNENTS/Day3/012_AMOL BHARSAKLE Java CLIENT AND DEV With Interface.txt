@@ -1,0 +1,64 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	28/05/2021
+Topic:	  		Developer Client Assignment For Shape
+Language Used:		JAVA
+##################################################################
+//--------------------------------------------------------------------
+on developer side:
+
+create interface "Shape" with "void draw();" method.
+
+now define child classes 
+	Triangle,Rect and Circle
+
+
+
+on Client side:
+
+define "ShapeDemo" class with main function
+
+create an array of "Shape" with 3 elements. store objects of Triangle,Rect and Circle in this array. now traverse the array and invoke "draw()" of each child.
+
+//--------------------------------------------------------------------
+
+package day3;
+
+//++++++++++++++CLIENT SIDE++++++++++++++++++++++++
+public class ShapeWithInetrface {
+
+	public static void main(String[] args) {
+		
+		Triangle tri=new Triangle();
+		Ractanle ract=new Ractanle();
+		Circle cir=new Circle();
+		
+		tri.drow();
+		ract.drow();
+		cir.drow();
+
+	}
+
+}
+
+
+// ++++++++++DEVELOPER SIDE++++++++++++++++++++++++=+
+interface ShapeT{
+	void drow();
+}
+class Triangle implements ShapeT{
+
+	public void drow() {
+		System.out.println("This is Triangle");
+	}
+}
+class Ractanle implements ShapeT{
+	public void drow() {
+		System.out.println("This is Ractangle");
+	}
+}
+class Circle implements ShapeT{
+	public void drow() {
+		System.out.println("This is Circle");
+	}
+}

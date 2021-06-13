@@ -1,0 +1,103 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of
+creation:		26/05/2021
+Topic:	  		Controll Flow Assignment
+Language Used:		JAVA
+##################################################################
+
+For all these assignments do not accept input from user, as we haven't learnt that. Just hardcode any variable and work on it.
+
+
+//1)	display a table of a particular number     
+	
+public class PrintTable{
+	public static void main(String args[]){
+		
+		int t=4;
+		for(int i=1;i<=10;i++){
+			System.out.println(t+" x "+i+" = "+t*i);
+		}
+	}
+}
+
+//2)	using switch ….case   display whether character is vowel or not.
+
+public class FindVowel{
+	public static void main(String args[]){
+		
+		char ch='O';
+		System.out.println();
+		switch(ch){
+		case 'A':
+		case 'a': System.out.println(ch+" is Vovel");
+				break;
+		case 'E':
+		case 'e': System.out.println(ch+" is Vovel");
+				break;
+		case 'I':
+		case 'i': System.out.println(ch+" is Vovel");
+				break;
+		case 'O':
+		case 'o': System.out.println(ch+" is Vovel");
+				break;
+		case 'U':
+		case 'u': System.out.println(ch+" is Vovel");
+				break;
+		default: System.out.println("Character is not a Vovel");
+			break;
+		}	
+	
+	}
+}
+
+//3)	Display numbers  1 to 10 using do…. While loop
+
+public class DoWhile{
+	public static void main(String args[]){
+		int i=0;
+		do{
+		System.out.println(" Num : "+ ++i);
+		}while(i<10);
+	}
+
+}
+
+//4)	Display numbers from 3 to 30 except number 24  using while loop.
+
+public class PrintVal{
+	public static void main(String args[]){
+		
+	for(int i=3;i<=30;i++){
+		if(i==24)
+		   continue;
+	System.out.println(i);
+	}
+
+	}
+}
+
+//5)	Using if…….else if….  Else,  display whether result is  fail, pass, second class , first class, Distinction etc.  
+	
+public class Result{
+	public static void main(String args[]){
+		int per=85;
+		if(per>=80)
+			System.out.println("Pass with Grade A first class with #DISTINCTION"); 
+		else if(per>=75)
+			System.out.println("Pass with Grade A first class"); 
+		else if(per>=60)
+			System.out.println("Pass with Grade B Second class"); 
+		else if(per>=50)
+			System.out.println("Pass with Grade C Third class"); 
+		else if(per>=34)
+			System.out.println("Pass "); 
+		else 
+			System.out.println("Fail "); 
+		
+	}
+}
+
+
+
+

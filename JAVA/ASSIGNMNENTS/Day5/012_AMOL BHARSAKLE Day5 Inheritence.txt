@@ -1,0 +1,235 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	31/05/2021
+Topic:	  		Inheritence
+Language Used:		JAVA
+##################################################################
+1)	Define 2 classes “First” and “Second” with member variables , 
+	member functions and constructors of  your choice. Now define a class “Two” 
+	in which define main function . In main function create various instances of First 
+	and Second  and call their individual member functions.
+
+package day5;
+
+public class Two {
+
+	public static void main(String[] args) {
+		
+		First f=new First();
+		f.num=10;
+		System.out.println("First { Num : "+f.num+" }");
+		f.disp();
+		
+		Second s = new Second();
+		s.num=20;
+		System.out.println("Second { Num : "+s.num+" }");
+		s.disp();
+	}
+}
+class First{ 
+	int num; 
+	public First(){ System.out.println("First Constructer"); } 
+	void disp(){ System.out.println("First Disp M."); } 
+}
+class Second{ 	
+	int num; 
+	public Second(){ System.out.println("Second Constructer"); } 
+	void disp(){ System.out.println("Second Disp M."); } 
+}
+------------------------------------------------------------------------------------------------
+2)	Create a class with static and non-static member variables. 
+	Define static and non-static member functions. Create instance of this 
+	class and call both static and non-static member functions.
+
+package day5;
+
+public class StaticNonstatic {
+
+	public static void main(String[] args) {
+		
+		Static1 s1=new Static1();
+		System.out.println("Num2="+s1.num2);
+		System.out.println(Static1.num1);
+		Static1.showStaticNum();
+		s1.displayAll();
+	}
+}
+class Static1{
+	public static int num1;
+	public int num2;
+	
+	static { num1=10;}
+	{ num2=20; }
+	
+	public static void showStaticNum() { System.out.println(Static1.num1);	}
+	
+	public void displayAll() {
+		System.out.println("Static num1:"+Static1.num1+",Non Static num2:"+num2);
+	}
+}
+
+------------------------------------------------------------------------------------------------
+3)	Define a class “Check” in which declare member variables using  
+	different accessibility modifiers i.e.  <default>, private ,public and protected.   
+	Define a function “disp”  which should be public.  Define a class “CheckDemo” in which you will write “main()” function. 
+	Create an instance of  the class “Check” and  show how many  variables can be accessed directly and how many indirectly.
+------------------------------------------------------------------------------------------------
+package day5;
+
+public class CheckDemo {
+
+	public static void main(String[] args) {
+		
+		Check check = new Check();
+		check.mem1=10;
+		check.mem2=20;
+		check.mem3=30;
+		System.out.println(check.mem1);
+		System.out.println(check.mem2);
+		System.out.println(check.mem3);
+		check.disp();
+
+	}
+
+}
+class Check{
+	
+	int mem1;
+	public int mem2;
+	protected int mem3;
+	private int mem4;
+	
+	{
+		mem1=10;
+		mem2=20;
+		mem3=30;
+		mem4=40;
+	}
+	public void disp() {
+		System.out.println("[ Mem1 : "+this.mem1+", Mem2 : "+this.mem2+", Mem3 : "+this.mem3+", Mem4 : "+this.mem4+"]");
+	}
+	
+}
+------------------------------------------------------------------------------------------------
+4)	Show the example of single level inheritance with constructor invocation.
+class Parent{}
+class Child extends Parent{}
+public class SingleLevelInheritence{
+	public static void main(String args[]){
+		Parent ref = new Child();
+	}
+}
+------------------------------------------------------------------------------------------------
+5)	Show the example of multi-level inheritance with constructor invocation.
+
+class Parent{}
+class Child extends Parent{}
+class SubChild extends Child{}
+public class SingleLevelInheritence{
+	public static void main(String args[]){
+		Parent ref = new SubChild();
+	}
+}
+------------------------------------------------------------------------------------------------
+6)	Show the example of hierarchical inheritance with constructor invocation.
+
+class Parent{}
+class Child extends Parent{}
+class SubChild extends Parent{}
+public class SingleLevelInheritence{
+	public static void main(String args[]){
+		Parent ref = new Child();
+		Parent ref = new SubChild();
+	}
+}
+------------------------------------------------------------------------------------------------
+7)	Define a parent and a child class . Now explain function overriding with Example.
+class Parent{
+	public void display(String str){ System.out.println(" Hello "+str); }
+}
+class Child extends Child{
+	public void display(String str){ System.out.prinln("Hello "+str+", This is Amol"); }
+}
+public class MainDemo{
+	public static void main(String args[]){
+		Parent ref = new Child();
+	}
+}
+
+------------------------------------------------------------------------------------------------
+8)	Define a parent class with one function. Define child class with the function 
+	having same name as of parent class function, but having different argument.
+	Create an instance of child class and call the functions. 
+	Make sure u have followed the concept of “function overloading “ in inheritance.
+
+
+
+
+
+class Parent{
+	public void display(String str){ System.out.println(" Hello "+str); }
+}
+class Child extends Child{
+	public void display(String name,int age){ System.out.prinln("Hello "+str+" your age is : "+age); }
+}
+public class MainDemo{
+	public static void main(String args[]){
+		Child ref = new Child();
+	}
+}
+
+------------------------------------------------------------------------------------------------
+9)	Define a class “Shape” with “draw()” function . 
+	Now derive  classes like “Circle”, “Polygon”,”Rectangle” etc. from “Shape” and override “draw()” function. 
+	Define a class “ShapeDemo” in which  write  main()  function. In the main function create a reference to Shape class 
+	referring to any of the sub class. Using this reference, call “draw()” and check the result.
+
+class Shape{ public void drow(){ System.out.println("Drow of Shape"); } }
+class Circle extends shape{ public void drow(){ System.out.println("Drow of Circle"); }   }
+class Polygon extends shape{ public void drow(){ System.out.println("Drow of Polygon"); }   }
+class Rectangle extends shape{ public void drow(){ System.out.println("Drow of Rectangle"); }   }
+public ShapeDemo{
+	public static void main(String args[]){
+		Shape shape1=new Circle();
+			shape1.drow();
+		Shape shape2=new Polygon();
+			shape2.drow();
+		Shape shape3=new Rectangle();
+			shape3.drow();
+	}
+}
+
+------------------------------------------------------------------------------------------------
+10)	Define an interface “Vechicle” with “start()” function . Now derive  classes like “TwoWheeler”, “ThreeWheeler”,”FourWheeler” etc. 
+	from “Vehicle” and override “start()” function. Define a class “VDemo” in which  write  main()  function. 
+	In the main function create a reference to Vehicle  class referring to any of the sub class. Using this reference, call “start" method.
+
+interface Vehicle{
+	public void start();
+}
+class TwoWheeler implements Vehicle{ public void start(){ System.out.println("TwoWheeler"); } }
+class ThreeWheeler implements Vehicle{ public void start(){ System.out.println("ThreeWheeler"); } }
+class FourWheeler implements Vehicle{ public void start(){ System.out.println("FourWheeler"); } }
+public class VDemo{
+	public static void main(String args[]){
+		Vehicle vehicle1= new TwoWheeler();
+			vehicle1.start();
+		Vehicle vehicle2= new ThreeWheeler();
+			vehicle2.start();
+		Vehicle vehicle3= new FourWheeler();
+			vehicle3.start();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

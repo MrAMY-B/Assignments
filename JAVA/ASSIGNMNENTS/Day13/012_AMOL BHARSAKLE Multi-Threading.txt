@@ -1,0 +1,162 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	09/06/2021
+Topic:	  		Multi Threading
+Language Used:		JAVA
+##################################################################
+/*
+3) create 3 threads in such a way that while one thread is executing, 2 threads cannot interfere. 
+they should display output "Exec  0" to "Exec 5".
+*/
+
+package threading;
+
+public class SyncronizationBasic {
+
+	public static void main(String[] args) {
+		
+		SyncThread st = new SyncThread();
+		Thread t1=new Thread(st);
+		Thread t3=new Thread(st);
+		Thread t2=new Thread(st);
+		t1.setName("A");
+		t3.setName("C");
+		t2.setName("B");
+		t1.start();
+		t3.start();
+		t2.start();
+
+		
+	}
+
+}
+
+class SyncThread implements Runnable{
+
+	synchronized public void run() {
+		for (int i = 0; i < 5; i++) {
+			System.out.println(i+"-"+Thread.currentThread());
+		}
+	}
+	
+}
+/*
+4)create 2 threads. Write a program which displays number 1 to 10 using class lock. 
+[hint:- use "implements Runnable" and synchronized block]
+*/
+package threading;
+
+public class SyncroDemo4 {
+
+	public static void main(String[] args) {
+		ClassThread cd = new ClassThread();
+		Thread t1=new Thread(cd);
+		Thread t2=new Thread(cd);
+		t1.setName("first");
+		t2.setName("Second");
+		t2.start();
+		t1.start();
+		
+
+	}
+
+}
+
+class ClassThread implements Runnable{
+
+	synchronized public static  void printOneToTen() {
+		for (int i = 1; i <= 10; i++) {
+			System.out.println(i+"-"+Thread.currentThread());
+		}
+	}
+	
+	public void run() {
+		printOneToTen();
+	}
+	
+}
+/*
+5) create 2 threads
+	one thread will display 1 to 50
+	second thread will display 50 to 1
+both the threads should start simultaneously.
+
+(use implements method)
+*/
+package threading;
+
+public class ThreadPrintDemo {
+
+	public static void main(String[] args) {
+
+		System.out.println(Thread.currentThread());
+		//----------------------------------------
+		//MyThreadClass mtc=new MyThreadClass();
+		//Thread th1=new Thread(mtc);
+		//Thread th2=new Thread(mtc);
+		//----------------------------------------
+		Thread th1=new Thread(new MyThreadClass());
+		Thread th2=new Thread(new MyThreadClass());
+		th1.setName("First");
+		th2.setName("Second");
+		th1.start();
+		th2.start();
+
+	}
+
+}
+class MyThreadClass implements Runnable{
+	
+	@Override
+	public void run() {
+		String str[]=Thread.currentThread()
+				   .toString()
+				   .substring(Thread.currentThread()
+							.toString()
+							.indexOf('[')+1, 
+						   Thread.currentThread()
+						    .toString()
+						    .indexOf(']')
+						   ).split(",");
+	if(str[0].equals("First")) {
+		for (int i = 1; i <= 50; i++) {
+			System.out.println(str[0]+"---> "+i);
+		}
+	}else if(str[0].equals("Second")) {
+		for (int i = 50; i >= 1; i--) {
+			System.out.println(str[0]+"---> "+i);
+		}
+	}
+		
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

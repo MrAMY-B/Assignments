@@ -1,0 +1,184 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	10/06/2021
+Topic:	  		Advanced Multi Threading
+Language Used:		JAVA
+##################################################################
+/*
+//1) create a multi-threaded application by using Thread pool.create 2 threads. each thread should display characters from A to J.
+//[ make sure while one thread executes , other thread should not interfere ]
+*/
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class AllInOneMain {
+
+	public static void main(String[] args) {
+		
+		ExecutorService execS=Executors.newFixedThreadPool(2);
+		MyThread thread = new MyThread();
+		execS.execute(thread);
+		execS.execute(thread);
+		execS.shutdown();
+	
+
+	}
+
+}
+class MyThread implements Runnable{
+	@Override
+	synchronized public void run() {
+		
+		for (int i = 65; i <= 75; i++) {
+			System.out.println(Thread.currentThread().getName()+" - "+(char)i);
+		}
+		
+	}
+}
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------
+
+/*2) create a multi-threaded application by using Thread pool.create 2 threads. each thread should display numbers from 1 to 10. 
+ [ make sure while one thread executes , other thread should not interfere ]
+Also when first thread displays nos. from 1 to 5 it should released the lock and allow other thread to display nos. 
+from 1 to 5 and then previous thread will display nos. from 6 to 10 and so on.
+*/
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class AllInOneMain {
+
+	public static void main(String[] args) {
+		
+		ExecutorService execS=Executors.newFixedThreadPool(2);
+		Print1to10 priningThread=new Print1to10();
+		
+		execS.execute(priningThread);
+		execS.execute(priningThread);
+		execS.shutdown();
+	
+	}
+
+}
+
+class Print1to10 implements Runnable{
+	@Override
+	synchronized public void run() {
+		for (int i = 1; i <= 10; i++) {
+			
+			if(i==5) {
+				try { wait(); } catch (InterruptedException e) { e.printStackTrace(); }
+			}
+		System.out.println(Thread.currentThread().getName()+"<->"+i);
+		notifyAll();
+		}
+		
+		
+	}
+}
+//-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+/*
+ 3) create a multi-threaded application by using Thread pool and ReentrantLock (explicit locking) 
+ .create 2 threads. each thread should display characters from A to J. 
+ [ make sure while one thread executes , other thread should not interfere ]
+*/
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class AllInOneMain {
+
+	public static void main(String[] args) {
+		
+		ExecutorService execS=Executors.newFixedThreadPool(2);
+		MyRenLock mrlThread=new MyRenLock();
+		execS.execute(mrlThread);
+		execS.execute(mrlThread);
+		execS.shutdown();
+		
+	}
+
+}
+
+class MyRenLock implements Runnable{
+	ReentrantLock renLoc=new ReentrantLock();
+	
+	@Override
+	public void run() {
+	
+		
+		renLoc.lock();
+		for (char ch = 'A'; ch <= 'J'; ch++) {
+			System.out.println(Thread.currentThread().getName()+" <-> "+ch);
+		}
+		renLoc.unlock();
+		
+	}
+}
+//-------------------------------------------------------------------------------------------------------------
+/*
+ 4) create a multi-threaded application by using Thread pool and ReentrantLock.create 2 threads. each thread should display numbers from 1 to 10.
+  [ make sure while one thread executes , other thread should not interfere ]
+Also when first thread displays nos. from 1 to 5 it should released the lock and allow other thread to display nos. 
+from 1 to 5 and then previous thread will display nos. from 6 to 10 and so on.
+*/
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class AllInOneMain {
+
+	public static void main(String[] args) {
+		
+		
+		ExecutorService execS=Executors.newFixedThreadPool(2);
+		MyRenWithPool mrlwithPool=new MyRenWithPool();
+		execS.execute(mrlwithPool);
+		execS.execute(mrlwithPool);
+		execS.shutdown();
+	}
+}
+class MyRenWithPool implements Runnable{
+	
+	ReentrantLock renLock=new ReentrantLock();
+	Condition cond=renLock.newCondition();
+	@Override
+	public void run() {
+		renLock.lock();
+		for (int i = 1; i <= 10 ; i++) {
+			System.out.println(Thread.currentThread().getName()+" <-> "+i);
+			if(i==5) {
+				try {
+					cond.await();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			cond.signalAll();
+		}
+		renLock.unlock();
+	}
+}
+
+
+
+
+
+
+
+
+

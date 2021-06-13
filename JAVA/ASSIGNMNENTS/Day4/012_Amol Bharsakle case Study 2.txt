@@ -1,0 +1,208 @@
+##################################################
+Author:			AMOL BHARSAKLE
+Date of creation:	29/05/2021
+Topic:			Case Study 2(Student Developer client app
+Language Used:		Java
+##################################################
+ 
+package emppack;
+
+/**
+ * @author AMOL BHARSAKLE
+ *
+ */
+public class Employee {
+	
+	private String name;
+	private String desig;
+	private double salary;
+	
+	
+	
+	/**
+	 * 
+	 */
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	/**
+	 * @param name-Employee Name
+	 * @param desig-Employee Designation
+	 * @param salary-Employees
+	 */
+	public Employee(String name, String desig, double salary) {
+		super();
+		this.name = name;
+		this.desig = desig;
+		this.salary = salary;
+	}
+
+
+
+	/**
+	 * @return the Employee name 
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+
+	/**
+	 * @param name the name to set Employee name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	/**
+	 * @return the Employee designation
+	 */
+	public String getDesig() {
+		return desig;
+	}
+
+
+
+	/**
+	 * @param desig the designation to set
+	 */
+	public void setDesig(String desig) {
+		this.desig = desig;
+	}
+
+
+
+	/**
+	 * @return the salary
+	 */
+	public double getSalary() {
+		return salary;
+	}
+
+
+
+	/**
+	 * @param salary the salary to set Employee  salary
+	 */
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Employee [name=" + name + ", desig=" + desig + ", salary=" + salary + "]";
+	}
+	
+	
+	
+
+}
+//-------------------------- Student Client ------------------------------------
+package client;
+
+import studpack.Student;
+
+public class School {
+
+	public static void main(String[] args) {
+		
+		Student student = new Student("Amol","Burhanpur",25);
+		System.out.println(student);
+
+	}
+
+}
+
+//------------------------- Student Devloper class ------------------------
+
+package studpack;
+
+/**
+ * @author AMOL BHARSAKLE
+ *
+ */
+public class Student {
+		
+		private String name;
+		private String address;
+		private int age;
+		/**
+		 * 
+		 */
+		public Student() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		/**
+		 * @param name
+		 * @param address
+		 * @param age
+		 */
+		public Student(String name, String address, int age) {
+			super();
+			this.name = name;
+			this.address = address;
+			this.age = age;
+		}
+		/**
+		 * @return the name
+		 */
+		public String getName() {
+			return name;
+		}
+		/**
+		 * @param name the name to set
+		 */
+		public void setName(String name) {
+			this.name = name;
+		}
+		/**
+		 * @return the address
+		 */
+		public String getAddress() {
+			return address;
+		}
+		/**
+		 * @param address the address to set
+		 */
+		public void setAddress(String address) {
+			this.address = address;
+		}
+		/**
+		 * @return the age
+		 */
+		public int getAge() {
+			return age;
+		}
+		/**
+		 * @param age the age to set
+		 */
+		public void setAge(int age) {
+			this.age = age;
+		}
+		@Override
+		public String toString() {
+			return "Student [name=" + name + ", address=" + address + ", age=" + age + "]";
+		}
+
+
+		
+}
+
+
+
+
+
+
+
+
+
+

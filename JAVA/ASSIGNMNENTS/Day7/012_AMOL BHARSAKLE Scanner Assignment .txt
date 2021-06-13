@@ -1,0 +1,155 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	02/06/2021
+Topic:	  		Scanner Assignment
+Language Used:		JAVA
+##################################################################
+-----------------------------------Scanner Assignment------------------------------------------
+package day6;
+
+import java.util.Scanner;
+
+public class SacnnerAssignment {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		
+		/*
+		 1) accept marks from user. if marks are
+		> 75  display "Distinction"
+		> =60 and < =75 display "first class"
+		> =45 and < 60 display "second class"
+		>=35 and < 45 display "pass class"
+		<35 display "fail"
+		 */
+		System.out.println("Enter your marks.");
+		int marks=sc.nextInt();
+		
+		if(marks>75)
+			System.out.println("Pass with Distinction");
+		else if(marks>=60 && marks<=75)
+			System.out.println("Pass with First Class");
+		else if(marks>=45 && marks<60)
+			System.out.println("Pass with Second class");
+		else if(marks>=35 && marks<45)
+			System.out.println("Pass");
+		else
+			System.out.println("Fail");
+//-------------------------------------------------------------------------
+		
+		
+		//2) accept a number and display whether it is divisible by 7 or not.
+		System.out.println("Enter any number");
+		int num=sc.nextInt();
+		if(num%7==0)
+			System.out.println("Divisable by 7");
+		else
+			System.out.println("Not Divisable by 7");
+//-------------------------------------------------------------------------
+		//3) accept a character and display (using if.. else ) whether it is vowel or not.
+		System.out.print("Enter any Character : ");
+		char ch  =  sc.next().charAt(0);
+		
+		if(ch=='a' || ch=='A' || ch=='e' || ch=='E' || ch=='i' || ch=='I' || ch=='o' || ch=='O' || ch=='u' || ch=='U')
+			System.out.println("Vovel");
+		else
+			System.out.println("Not Vovel");
+//-------------------------------------------------------------------------
+		/*
+		 5) accept a number and display its table using 
+		while
+		do... while
+		for
+		 */
+		System.out.println("Enter any number : ");
+		int t=sc.nextInt();
+		for (int i = 1; i <= 10; i++) {
+			System.out.println(t+" * "+i+ " = "+t*i);
+		}
+		int wl=1;
+		while(wl<=10) { System.out.println(t+" * "+wl+ " = "+t*wl); wl++; }
+		wl=1;
+		do { System.out.println(t+" * "+wl+ " = "+t*wl); wl++; }while(wl<=10);
+//-------------------------------------------------------------------------
+		//6) accept numbers and display as long as user does not enter 0.
+			do{
+			System.out.println("Enter any number to print \n Enter 0 to exit");
+			int chh=sc.next().charAt(0);
+			if(chh=='0') {
+				System.out.println("Exiting");
+				break;
+			}
+			else
+				System.out.println("You enterd : "+chh);
+			}while(true);
+//------------------------------------------------------------------
+			//7) accept a number and display whether it is even , odd or zero.
+			System.out.println("Enter any number : ");
+			num=sc.nextInt();
+			if(num%2==0)
+				System.out.println("Number is EVEN");
+			else
+				System.out.println("Number is EVEN");
+//--------------------------------------------------------------------
+			//8) create int array of 5 elements and accept 5 values inside it. 
+			// Now display all the numbers of array.
+			int arr[]=new int[5];
+			for (int i = 0; i < arr.length; i++) {
+				System.out.println("Enter "+i+1+"value : ");
+				arr[i]=sc.nextInt();
+			}
+			for (int i = 0; i < arr.length; i++)
+				System.out.println(arr[i]);
+//-----------------------------------------------------------------
+			//10) accept 5 numbers in an array and display their sum.
+			int arrd[]=new int[5];
+			int sumof5=0;
+			for (int i = 0; i < arrd.length; i++) {
+				System.out.println("Enter "+i+1+"value : ");
+				arrd[i]=sc.nextInt();
+			}
+			
+			for (int i = 0; i < arrd.length; i++)
+				sumof5+=arrd[5];
+			
+			System.out.println(sumof5);
+//----------------------------------------------------------------
+			//11) accept 5 numbers in an array and sort them in ascending order.
+			int arrSort[]=new int[5];
+			for (int i = 0; i < arrSort.length; i++) {
+				System.out.println("Enter "+i+1+"value : ");
+				arrSort[i]=sc.nextInt();
+			}
+			for (int i = 0; i < arrSort.length; i++) {
+				for (int j = i+1; j < arrSort.length; j++) {
+					if(arrSort[i]>arrSort[j]) {
+						arrSort[i]=arrSort[i]+arrSort[j];
+						arrSort[j]=arrSort[i]-arrSort[j];
+						arrSort[i]=arrSort[i]-arrSort[j];
+					}
+				}
+			}
+			
+//----------------------------------------------------------------
+			/*12) accept 2 numbers and display whether
+			a) first number is greater
+			b) second number is greater
+			c) both are equal*/
+			System.out.println("Enter num 1 : ");
+			int num1=sc.nextInt();
+			System.out.println("Enter num 2 : ");
+			int num2=sc.nextInt();
+			if(num1>num2)
+				System.out.println("First number is greater "+num1);
+			else if(num2>num1)
+				System.out.println("Second number is greater "+num2);
+			else
+				System.out.println("Both are equal");
+			
+			
+		sc.close();
+	}
+
+}

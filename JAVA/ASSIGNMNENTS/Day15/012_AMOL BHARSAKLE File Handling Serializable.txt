@@ -1,0 +1,337 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	11/06/2021
+Topic:	  		File Handling(Serializable)
+Language Used:		JAVA
+##################################################################
+/*
+ 1)create a customer class with following attributes
+	custid
+	custname
+	address
+	age
+create one instance of it and store it in a file. (Serialization).
+now open a file, read the object and read its contents . (Deserialization)
+
+ */
+package serializable;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+
+public class FirstDemo {
+
+	public static void main(String[] args) {
+
+		File file=null;
+		FileOutputStream	fos=null;
+		ObjectOutputStream oos=null;
+		
+		FileInputStream fis=null;
+		ObjectInputStream ois=null;
+		
+		try {
+			
+			file=new File("D:\\E DAC\\JAVA\\WORK\\Day15\\FileO.txt");
+			fos=new FileOutputStream(file);
+			oos=new ObjectOutputStream(fos);
+			Customer customer=new Customer();
+			customer.setCustid(20);
+			customer.setCustname("Amol");
+			customer.setAddress("Burhanpur");
+			customer.setAge(24);
+			System.out.println("------- Writing Data -------");
+			oos.writeObject(customer);
+			oos.close();
+			Thread.sleep(700);
+			System.out.println("------- Writing DONE -------");
+			
+			Thread.sleep(700);
+			
+			System.out.println("------- Reading Data -------");
+			fis=new FileInputStream(file);
+			ois=new ObjectInputStream(fis);
+			Customer cust=(Customer)ois.readObject();
+			System.out.println("------- Reading DONE -------");
+			System.out.println(cust);
+			
+			
+			ois.close();
+			
+		} catch (IOException | InterruptedException | ClassNotFoundException e) {	e.printStackTrace();	}
+		
+	}
+}
+class Customer implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private int custid;
+	private String custname;
+	private String address;
+	private int age;
+	
+	public int getCustid() {
+		return custid;
+	}
+	public void setCustid(int custid) {
+		this.custid = custid;
+	}
+	public String getCustname() {
+		return custname;
+	}
+	public void setCustname(String custname) {
+		this.custname = custname;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "Customer [custid=" + custid + ", custname=" + custname + ", address=" + address + ", age=" + age + "]";
+	}
+}
+//--------------------------------------------------------------------------
+/*
+ 2) Person class implements Serializable with
+	private String name
+	private int age
+
+		getters and setters
+		parameterized constructor
+
+Student extends Person
+	private int rollno
+		getter and setters
+		parameterized constructor accepting name,age and rollno
+			pass name and age to the super constructor
+
+
+Demo class with main
+	create one object of Student, write it inside file and then read.
+
+ */
+package serializable;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+/**
+ * @author AMOL BHARSAKLE
+ *
+ */
+
+public class SecondDemo {
+
+	public static void main(String[] args) {
+		
+		File file=null;
+		FileInputStream fis=null;
+		FileOutputStream fos=null;
+		ObjectInputStream ois=null;
+		ObjectOutputStream oos=null;
+		
+		file=new File("D:\\E DAC\\JAVA\\WORK\\Day15\\FileO.txt");
+		try {
+			fos=new FileOutputStream(file);
+			oos=new ObjectOutputStream(fos);
+			Student student=new Student("AMOL", 24, 17);
+			
+			System.out.println("---------- Writing Object ----------");
+			oos.writeObject(student);
+			Thread.sleep(500);
+			System.out.println("---------- Writing Done ----------");
+			Thread.sleep(500);
+			
+			System.out.println("---------- Reading Object ----------");
+			fis=new FileInputStream(file);
+			ois=new ObjectInputStream(fis);
+			Student st=(Student)ois.readObject();
+			Thread.sleep(500);
+			System.out.println("---------- Reading Done ----------");
+			System.out.println(st);
+			
+			
+		} catch (IOException |InterruptedException | ClassNotFoundException e) { e.printStackTrace(); }
+	}
+
+}
+class Student extends Person{
+	private static final long serialVersionUID = 1L;
+	private int rollno;
+
+	public Student(String name, int age, int rollno) {
+		super(name, age);
+		this.rollno = rollno;
+	}
+
+	public int getRollno() {
+		return rollno;
+	}
+	
+	public void setRollno(int rollno) {
+		this.rollno = rollno;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [name="+getName()+", age="+getAge()+", rollno=" + rollno + "]";
+	}
+}
+
+class Person implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private String name;
+	private int age;
+	
+	public Person(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "Person [name=" + name + ", age=" + age + "]";
+	}
+}
+//-----------------------------------------------------------------------------
+/*
+ 
+3) Define a class "Car" with
+	private int id and private String modelname;
+	setters and getters
+
+	create 2 objects of Car and write them inside filesystem and thereafter read both the objects and display.
+
+ */
+package serializable;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+
+
+public class ThirdDemo {
+
+	public static void main(String[] args) {
+		File file=null;
+		FileInputStream fis=null;
+		FileOutputStream fos=null;
+		ObjectInputStream ois=null;
+		ObjectOutputStream oos=null;
+		
+		file=new File("D:\\E DAC\\JAVA\\WORK\\Day15\\FileO.txt");
+		try {
+			fos=new FileOutputStream(file);
+			oos=new ObjectOutputStream(fos);
+			Car car=new Car();
+			car.setId(10);
+			car.setModelname("AutoDIGI");
+			
+			
+			System.out.println("---------- Writing Object ----------");
+			oos.writeObject(car);
+			Thread.sleep(500);
+			System.out.println("---------- Writing Done ----------");
+			Thread.sleep(500);
+			
+			System.out.println("---------- Reading Object ----------");
+			fis=new FileInputStream(file);
+			ois=new ObjectInputStream(fis);
+			Car c=(Car)ois.readObject();
+			Thread.sleep(500);
+			System.out.println("---------- Reading Done ----------");
+			System.out.println(c);
+			
+			
+		} catch (IOException |InterruptedException | ClassNotFoundException e) { e.printStackTrace(); }
+	}
+}
+class Car implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private int id;
+	private String modelname;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getModelname() {
+		return modelname;
+	}
+	public void setModelname(String modelname) {
+		this.modelname = modelname;
+	}
+	@Override
+	public String toString() {
+		return "Car [id=" + id + ", modelname=" + modelname + "]";
+	}	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
