@@ -1,0 +1,359 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	14/06/2021
+Topic:	  		Collection Assignments
+Language Used:		JAVA
+##################################################################
+
+/*  ----------1----------------------------------------
+1) accept 10 numbers from user and add them inside the ArrayList.
+using ListIterator display all the numbers bidirectionally.
+-------------------------------------------------------
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Scanner;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+		List<Integer> list=new ArrayList<Integer>();
+		for (int i = 1; i <= 10; i++) {
+			System.out.println("Enter Number: ");
+			list.add(sc.nextInt());
+		}
+		ListIterator<Integer> itr=list.listIterator();
+		while(itr.hasNext())
+		System.out.println(itr.next());
+		
+		while(itr.hasPrevious())
+			System.out.println(itr.previous());
+		
+		sc.close();
+	}
+
+}
+
+/*  ----------2---------------------------------------
+2) create LinkedList with the values 10,20,30 and 40.
+display it.
+now insert 500 in the beginning.
+	insert 400 at 2nd position.
+	add 1000 at the end.
+display the list again.
+*/
+
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+		List<Integer> list=new LinkedList<Integer>();
+		list.add(10);
+		list.add(20);
+		list.add(30);
+		list.add(40);
+		System.out.println("---- BEFORE ----");
+		for (Integer integer : list) 
+			System.out.println(integer);
+		
+		((LinkedList)list).addFirst(500);
+		list.add(1,400);
+		((LinkedList)list).addLast(1000);
+		System.out.println("---- AFTER ----");
+		for (Integer integer : list) 
+			System.out.println(integer);
+		
+		
+		sc.close();
+	}
+
+}
+
+
+/* ----------3---------------------------------------------
+3) add 5 numbers inside CopyOnWriteArrayList 
+	and show how can you add one more number at the 
+same time of traversal through its iterator.
+
+ */
+ package collection;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Scanner;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+
+		List<Integer> list=new CopyOnWriteArrayList<Integer>();
+		list.add(10);list.add(20);list.add(30);list.add(40);
+		ListIterator<Integer> litr=list.listIterator();
+		while(litr.hasNext()) {
+			System.out.println(litr.next());
+			list.add(3);
+		}
+		 		OR
+		Iterator<Integer> itr = list.iterator();
+		while(itr.hasNext()) {
+			System.out.println(itr.next());
+			list.add(1000);
+		}
+		
+		System.out.println("------");
+		for (Integer integer : list) {
+			System.out.println(integer);
+		}
+		
+		sc.close();
+	}
+
+}
+/*---------------4--------------------------------------
+4) create a class "MyClass".
+create 5 different objects of it.
+add them in a ArrayList.
+store ArrayList in file.
+Now open a file, read ArrayList and display all objects.
+*/
+package collection;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+
+		List<MyClass> list=new ArrayList<MyClass>();
+		list.add(new MyClass("AMOL",'A'));
+		list.add(new MyClass("AMAN",'A'));
+		list.add(new MyClass("Nishchar",'A'));
+		list.add(new MyClass("Pratik",'A'));
+		list.add(new MyClass("Sarvesh",'A'));
+		
+		FileOutputStream fos=null;
+		ObjectOutputStream oos=null;
+		FileInputStream fis=null;
+		ObjectInputStream ois=null;
+		
+		try {
+			fos =new FileOutputStream("D:\\E DAC\\JAVA\\WORK\\Day16\\FileIO.txt");
+			oos= new ObjectOutputStream(fos);
+			oos.writeObject(list);
+			
+			System.out.println("------------------------------------------");
+			System.out.println("Objects list written to file");
+			System.out.println("------------------------------------------");
+			System.out.println("Objects list reading from file");
+			System.out.println("------------------------------------------");
+			
+			fis= new FileInputStream("D:\\E DAC\\JAVA\\WORK\\Day16\\FileIO.txt");
+			ois=new ObjectInputStream(fis);
+			
+			List<MyClass> dlist=(ArrayList<MyClass>)ois.readObject();
+				for (MyClass myClass : dlist) {
+					System.out.println(myClass);
+				}
+			
+		}catch (IOException | ClassNotFoundException e) {
+			// TODO: handle exception
+		}
+		
+		sc.close();
+	}
+
+}
+
+/*//----------------5----------------------------------------------
+ package collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+import java.util.Set;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+		
+		Map<Integer,String> map=new HashMap<>();
+		map.put(12, "AMOL Bharsakle");
+		map.put(70, "Praful Mahajan");
+		map.put(14, "Anurag Thakur");
+		map.put(34, "Harshal Choudhary");
+		map.put(38, "Himanshu Nikam");
+		
+		Set<Entry<Integer,String>> entrySet=(Set<Entry<Integer,String>>)map.entrySet();
+		Iterator<Entry<Integer,String>> itr=entrySet.iterator();
+		while(itr.hasNext()) {
+			Entry<Integer, String> entry=itr.next();
+			System.out.println("Entry [ Key:"+entry.getKey()+", Value : "+entry.getValue()+" ]");
+		}
+		
+		sc.close();
+	}
+}
+
+/*------------6-----------------------------------------------------
+6) create a hierarchy as follows
+	interface Game- play() method
+	Derive at least 3 classes from it. ( Cricket, Chess and Football )
+Now Create generic class which can take Game type (i.e. any sub type of Game) as parameter.
+In this class try to call the play() method of the class which is passed to it.
+
+
+package collection;
+import java.util.Scanner;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+		MyGame<Game> game=null;
+		
+		game=new MyGame<Game>(new Cricket());
+		game.play();
+		game=new MyGame<Game>(new Chess());
+		game.play();
+		game=new MyGame<Game>(new Football());
+		game.play();
+		
+		sc.close();
+	}
+}
+interface Game{ public void play(); }
+class Cricket implements Game{ public void play(){ System.out.println("Playing Cricker...."); } }
+class Chess implements Game{ public void play(){ System.out.println("Playing Chess...."); } }
+class Football implements Game{ public void play(){ System.out.println("Playing Football...."); } }
+class MyGame<T extends Game>{
+	T t;
+	public MyGame(T t){  this.t=t; }
+	public void play() {
+		t.play();
+	}
+}
+
+/*---------------------7-----------------------------------
+7) Define a class "Employee" with following members
+empid, empname, desig, basic.
+Define a parameterised constructor which will take all these values while creating an instance.
+Also define "disp()" method which will display all these details.
+create 4 employees and save them in "ArrayList".
+Now save this "ArrayList" in a file.
+Open file , read "ArrayList" , traverse ArrayList and call "disp()" for all the objects.
+*/
+
+package collection;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+		
+		List<Employee> list=new ArrayList<Employee>();
+		list.add(new Employee(12, "AMOL BHARSAKLE", "Software Developer", "------"));
+		list.add(new Employee(13, "ANURAG THAKUR", "Network Engineer", "------"));
+		list.add(new Employee(12, "HARSHAL CHOUDHARY", "Software Developer", "------"));
+		list.add(new Employee(12, "PPRAFUL MAHAJAN", "Digital Marketing Expert", "------"));
+		
+		FileOutputStream fos=null;
+		ObjectOutputStream oos=null;
+		FileInputStream fis=null;
+		ObjectInputStream ois=null;
+		
+		try {
+			fos=new FileOutputStream("D:\\E DAC\\JAVA\\WORK\\Day15\\FileO.txt");
+			oos=new ObjectOutputStream(fos);
+			
+			oos.writeObject(list);
+			
+			fis=new FileInputStream("D:\\E DAC\\JAVA\\WORK\\Day15\\FileO.txt");
+			ois=new ObjectInputStream(fis);
+			List<Employee> elist=(List<Employee>)ois.readObject();
+			
+			Iterator<Employee> itr=elist.iterator();
+			while(itr.hasNext())
+				itr.next().disp();
+			
+			
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		};
+		sc.close();
+	}
+}
+class Employee implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private int empid;
+	private String empname;
+	private String desig;
+	private String basic;
+	
+	public Employee(int empid,String empname,String desig,String basic){
+		this.empid=empid;
+		this.empname=empname;
+		this.desig=desig;
+		this.basic=basic;
+	}
+	
+ 	public void disp() {
+		System.out.println("Employee [empid=" + empid + ", empname=" + empname + ", desig=" + desig + ", basic=" + basic + "]");
+	}
+}
+/*------------8---------------------------------------------------
+8) maintain ICC ranking of at least 5 batsmen in the "HashMap".
+list should be maintain as "rank" "name"
+e.g. "1" "Rohit Sharma".
+Now ask any rank bet'n 1 to 5 from user. ( user input).
+if user asks for a particular rank , retrieve batsman name for that rank from the HashMap.
+*/
+package collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class CollectionAssignments {
+
+	public static void main(String[] args) {
+		Scanner	sc = new Scanner(System.in);
+		
+		Map<Integer,String> iccRankList=new HashMap<>();
+		iccRankList.put(1, "Mahendra Singh");
+		iccRankList.put(2, "Rohit Sharma");
+		iccRankList.put(3, "Hardik Pandya");
+		iccRankList.put(4, "Raina");
+		iccRankList.put(5, "Virat Kohli");
+		
+		System.out.println("Enter Any rank to find Bastman Name  : ");
+		System.out.println(iccRankList.get(sc.nextInt()));
+			
+		sc.close();
+	}
+}
