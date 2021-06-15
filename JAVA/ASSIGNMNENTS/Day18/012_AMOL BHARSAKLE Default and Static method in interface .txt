@@ -1,0 +1,136 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	15/06/2021
+Topic:	  		Default and Static methods in Interface
+Language Used:		JAVA
+##################################################################
+
+/*--------------------------1-------------------------------------------------------
+1) define interface "First" with "default void fun()" and interface "Second" with "default void fun()". 
+Now derive a class Child from both these interfaces. 
+Inside main function instantiate Child class instance and invoke "fun" method.
+*/
+package java8;
+
+public class Java8Interface {
+
+	public static void main(String[] args) {
+		Child child = new Child();
+		child.fun();
+	}
+
+}
+interface First{ default void fun() { System.out.println("First "); }; }
+interface Second{ default void fun() { System.out.println("Second"); } }
+class Child implements First,Second{ public void fun() { System.out.println("Child Class Method"); } }
+
+
+/*--------------------------2-------------------------------------------------------
+2) define interface "Third" with "default void disp1()" and "static void disp2()" methods.
+derive a class "Sub" from "Third" ( do not override "disp1")
+inside main function invoke "disp1" and "disp2" methods.
+*/
+package java8;
+
+public class Java8Interface {
+
+	public static void main(String[] args) {
+		
+		Third third = new Sub();
+		third.disp1();
+		Third.disp2();
+		
+	}
+
+}
+interface Third { 
+	default public void disp1() { System.out.println("Default method of Third"); } 
+	public static void disp2() { System.out.println("Static method of Third"); }
+}
+class Sub implements Third{  }
+
+
+/*--------------------------3-------------------------------------------------------
+3)define interface "Fourth" with "default void disp3()" method.
+define a class "Base1" with "public void disp3()" method,
+now derive a class Sub1 from "Base1" and "Fourth". Sub1 class should have only "public void myfun()" method.
+inside main create an object of "Sub1" and invoke "disp3".
+once you get the result, also try to invoke "disp3" of "Fourth"
+*/
+package java8;
+
+public class Java8Interface {
+
+	public static void main(String[] args) {
+		
+		Sub1 sub1 = new Sub1();
+		sub1.disp3();
+		
+	}
+
+}
+interface Fourth { default void disp3() { System.out.println("Default method of Fourth class"); } }
+class Base1{ public void disp3() { System.out.println("Base1 Class method"); } }
+class Sub1 extends Base1 implements Fourth{ public void myfun() { System.out.println("Sub1 class myfun method "); } }
+
+
+/*--------------------------4-------------------------------------------------------
+4) define interface "Base1" with "default void fun1()".
+derive an interface "Sub1" from "Base1" with "default void fun2()"
+derive a class "Sub2" from "Sub1". It should have only "public void fun3()" method.
+inside main function, create an object of "Sub2" and make sure when u invoke "fun3", 
+it should call "Sub1's fun2" which should call "Base1's fun1" method.
+*/
+package java8;
+
+public class Java8Interface {
+
+	public static void main(String[] args) {
+		
+		Sub2 sub2=new Sub2();
+		sub2.fun3();
+		
+	}
+
+}
+interface Base{ default void fun1() { System.out.println("inside Base I fun1 method"); } }
+interface Sub1 extends Base{ default void fun2() { System.out.println("inside Sub1 I fun2 method"); fun1(); } }
+class Sub2 implements Sub1{ public void fun3() { System.out.println("inside Sub2 fun3 method"); fun2();  } }
+
+
+
+/*--------------------------5-------------------------------------------------------
+5) define interface "First" with "static void disp1()" method.
+class "Base" with "static void disp2()" method.
+derive a class "Sub" from "Base" and "First"
+now define a class Demo in which define "main" method.
+inside main show how many ways you can invoke "disp1" and "disp2" methods.
+*/
+package java8;
+
+public class Java8Interface {
+
+	public static void main(String[] args) {
+		
+		First.disp1();	//using Interface name
+		Base.disp2();	//using Class name
+		Sub.disp2();	//using method name but it is not recommended
+
+	}
+}
+interface First{ static void disp1() { System.out.println("inside Static method of First interface "); }; }
+class Base{ public static void disp2() { System.out.println("Inside static method of Base class"); } }
+class Sub extends Base implements First{  }
+
+
+
+
+
+
+
+
+
+
+
+
+
