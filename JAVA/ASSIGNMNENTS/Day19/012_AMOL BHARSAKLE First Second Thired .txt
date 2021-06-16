@@ -1,0 +1,316 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	16/06/2021
+Topic:	  		Stream API Assignments(ONE,TWO,THREE)
+Language Used:		JAVA
+##################################################################
+/*//------------------------------------------1------------------------------------------
+	Question:1
+	define a class "Order" with:
+	enum Type
+	{
+		BUY,SELL;
+	}
+	private int quantity;
+	private double price;
+	private Type type;
+
+	define setter and getter methods for all the fields.
+	create 5 objects of this class and stored them inside list.
+
+	using stream api:
+	1) count how many orders are for "SELL"
+		hint:- use "filter" method of stream to check whether type is SELL and "count" method to count.
+	2) calculate sum of all the prices
+		hint:- use "mapToDouble" method of stream to convert price of each and every object and "sum" method to calculate total of all the prices.
+	3) calculate sum of all the quantities.
+		hint:- use "mapToInt" method of stream to convert qty of each and every object and "sum" method to calculate total of all the quantities.
+*/
+package java8;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import java8.Order.T;
+
+public class StreamOne {
+
+	public static void main(String[] args) {
+		
+		List<Order> olist = new ArrayList<>();
+		olist.add(new Order(2, 1380, Order.T.BUY));
+		olist.add(new Order(1, 5240, Order.T.SELL));
+		olist.add(new Order(3, 2530, Order.T.BUY));
+		olist.add(new Order(11, 6420, Order.T.SELL));
+		olist.add(new Order(4, 9620, Order.T.BUY));
+		
+		//All orders
+		olist.stream()
+			.filter(t -> t.getT()==T.SELL)
+			.forEach(System.out::println);
+		
+		//1) count how many orders are for "SELL"
+		System.out.println("Total orders are : "
+			+olist.stream()
+			.filter(t -> t.getT()==T.SELL)
+			.count());
+		
+		//2) calculate sum of all the prices are for SELL
+		System.out.println("Totatl Amount : "
+				+olist.stream()
+				.filter(t -> t.getT()==T.SELL)
+				.mapToDouble((o)-> o.getPrize()).sum());
+		
+		//3) calculate sum of all the quantities.
+		System.out.println("Total Quantities : "
+				+olist.stream()
+				.mapToInt(o->o.getQuantity())
+				.sum()
+				);
+
+	}
+
+}
+
+class Order{
+	enum T { BUY,SELL }
+	private int quantity;
+	private double prize;
+	private T t;
+	
+	public Order(int quantity, double prize, T t) {
+		super();
+		this.quantity = quantity;
+		this.prize = prize;
+		this.t = t;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public double getPrize() {
+		return prize;
+	}
+	public void setPrize(double prize) {
+		this.prize = prize;
+	}
+	public T getT() {
+		return t;
+	}
+	public void setT(T t) {
+		this.t = t;
+	}
+	@Override
+	public String toString() {
+		return "Order [quantity=" + quantity + ", prize=" + prize + ", t=" + t + "]";
+	}
+}
+/*//------------------------------------------2------------------------------------------
+Question 2
+define a class Student 
+	rollno
+	name
+	age
+	marks
+
+	parameterized constructor 
+	getter methods
+
+	create 5 objects and store them inside list.
+	using java8 stream api:
+	1) find out name starts with 's'
+		hint:- use "filter" to check names start with "s" and "forEach" method to display all those names.
+	2) how many students got more than 70
+		hint: use "filter" and "count"
+	3) how many students in between age 22 and 25
+		hint: use "filter" and "count"
+*/
+package java8;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StreamTwo {
+
+	public static void main(String[] args) {
+		List<Student> students = new ArrayList<Student>();
+		students.add(new Student(10, "Ravi Shinde", 22, 69));
+		students.add(new Student(13, "Shubham Shivhare", 25, 83));
+		students.add(new Student(17, "Suresg Gavai", 23, 75));
+		students.add(new Student(23, "Manisg Mendhekar", 26, 68));
+		students.add(new Student(29, "Youvraj Bhoi", 21, 58));
+		
+		//1) find out name starts with 's'
+		System.out.println("Students who's name starts with 'S' ");
+		students.stream()
+				.filter(s-> s.getName().startsWith("S"))
+				.forEach(System.out::println);
+		
+		//2) how many students got more than 70
+		System.out.println("\n\nTotal Students are : "+students.stream().filter(s-> s.getMarks()>70) .count());
+		students.stream()
+				.filter(s-> s.getMarks()>70)
+				.forEach(System.out::println);
+		
+		//3) how many students in between age 22 and 25
+		System.out.println("\n\nTotale Students between 22-25 age are : "+students.stream().filter(s->s.getAge()>=22 && s.getAge()<=25).count());
+		students.stream().filter(s->s.getAge()>=22 && s.getAge()<=25).forEach(System.out::println);
+
+	}
+}
+class Student{
+	private int roll;
+	private String name;
+	private int age;
+	private int marks;
+	
+	public Student() {}
+
+	public Student(int roll, String name, int age, int marks) {
+		super();
+		this.roll = roll;
+		this.name = name;
+		this.age = age;
+		this.marks = marks;
+	}
+	public int getRoll() {
+		return roll;
+	}
+	public void setRoll(int roll) {
+		this.roll = roll;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public int getMarks() {
+		return marks;
+	}
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [roll=" + roll + ", name=" + name + ", age=" + age + ", marks=" + marks + "]";
+	}
+}
+
+/*//------------------------------------------3------------------------------------------
+Question: 3
+
+define a class Player
+ 	with
+		int playerid
+		String name
+		int runs
+		String countryname
+
+		define
+			parameterized constructor and getter methods
+
+create 10 players and store them inside a list.
+using java8 stream api:
+1) display all the players representing "India".
+	hint:- use "filter" to check players representing "India" and "forEach" method in order to print them.
+2) find out how many players have scored more than 5000 runs.
+	hint:- use "filter" to check players scored more than 5000 runs and "count" method to count them.
+*/
+package java8;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StreamThree {
+
+	public static void main(String[] args) {
+		
+		List<Player> players = new ArrayList<>(); 
+		//I dont like cricket so i dont know their names :D
+		players.add(new Player(7,"Mahendra Sign Dhoni",7387,"India"));
+		players.add(new Player(12,"Youraj Singh",6443,"India"));
+		players.add(new Player(7,"Briend Lara",4257,"Austrelia"));
+		players.add(new Player(7,"Malinga ",6766,"South Africa"));
+		players.add(new Player(7,"Milind ",3154,"Neitherland"));
+		players.add(new Player(7,"Asid khan",2317,"Pakistan"));
+		players.add(new Player(7,"Raina Singh",3155,"India"));
+		players.add(new Player(7,"Barint",4537,"Autralia"));
+		players.add(new Player(7,"Sang lee",6412,"Japan"));
+		players.add(new Player(7,"Osbendo",3760,"Neitherland"));
+		
+		//1) display all the players representing "India"
+		System.out.println("\n\nPlayers representing India : "+players.stream()
+							.filter(player->player.getCountryname().equalsIgnoreCase("India"))
+							.count());
+		players.stream()
+				.filter(player->player.getCountryname().equalsIgnoreCase("India"))
+				.forEach(System.out::println);
+		
+		
+		//2) find out how many players have scored more than 5000 runs.
+		System.out.println("\n\nPlayers who have scored more than 5000 runs. :"+players.stream()
+								.filter(player->player.getRuns()>5000)
+								.count());
+		
+		players.stream()
+		.filter(player->player.getRuns()>5000)
+		.forEach(System.out::println);
+		}
+}
+class Player{
+	
+	private int playerid;
+	private String name;
+	private int runs;
+	private String countryname;
+	
+	public Player() {  }
+	public Player(int playerid, String name, int runs, String countryname) {
+		super();
+		this.playerid = playerid;
+		this.name = name;
+		this.runs = runs;
+		this.countryname = countryname;
+	}
+	public int getPlayerid() {
+		return playerid;
+	}
+	public void setPlayerid(int playerid) {
+		this.playerid = playerid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getRuns() {
+		return runs;
+	}
+	public void setRuns(int runs) {
+		this.runs = runs;
+	}
+	public String getCountryname() {
+		return countryname;
+	}
+	public void setCountryname(String countryname) {
+		this.countryname = countryname;
+	}
+	@Override
+	public String toString() {
+		return "Player [playerid=" + playerid + ", name=" + name + ", runs=" + runs + ", countryname=" + countryname
+				+ "]";
+	}
+}
+	
+		

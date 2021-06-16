@@ -1,0 +1,177 @@
+##################################################################
+Author: 		AMOL BHARSAKLE
+Date of creation:	16/06/2021
+Topic:	  		Method Reference Assignments
+Language Used:		JAVA
+##################################################################
+/*//------------------------------------1------------------------------------
+1) define a functional interface "First" with an abstract method "void disp1()".
+define a class "Second" with a method "void fun1()"
+inside main function create a method reference for "First" and invoke "fun1" of "Second"
+*/
+package java8;
+
+public class MethodReference {
+
+	public static void main(String[] args) {
+		MRFirst first=new MRSecond()::fun1;
+		first.disp();
+	}
+}
+interface MRFirst{ void disp(); }
+class MRSecond{ public void fun1() { System.out.println(" MR_Second class method fun1 "); } }
+
+
+/*//------------------------------------2------------------------------------
+2) define a functional interface "Third" with an abstract method "void show(int num)".
+define a class "Sample" with a method "void disp(int num)"
+
+inside main function create a method reference for "Third" and invoke "disp" of "Sample" by passing a value "500".
+*/
+package java8;
+public class MethodReference {
+
+	public static void main(String[] args) {
+		MRThird third=new MRSample()::disp;
+		third.show(550);
+	}
+}
+interface MRThird{ void show(int num); }
+class MRSample{ public void disp(int num) { System.out.println(" MR_Sample class method show | Given value is : "+num); } }
+
+
+/*//------------------------------------3------------------------------------
+3) define a functional interface "Fifth" with an abstract method "int add(int a,int b)"
+define a class Math1 with a method "int calc(int a,int b)" 
+
+inside main function invoke "calc" method with the help of
+	a) lamdba expression
+	b) method reference
+*/
+package java8;
+
+public class MethodReference {
+	public static void main(String[] args) {
+		
+		//MRFifth f1=(a,b)->{ return new MRMath1().calc(a, b); }; //if MRMath1 class method is not static
+		MRFifth f1=(a,b)->{ return MRMath1.calc(a, b); };
+		MRFifth f2=MRMath1::calc;
+		System.out.println(f1.add(10, 50));
+		System.out.println(f2.add(20, 50));
+	}
+}
+interface MRFifth{ int add(int a,int b); }
+class MRMath1{ public static int calc(int a,int b) { return a+b; } }
+
+/*//------------------------------------4------------------------------------
+4) define a functional interface "Sixth" with an abstract method "void disp5()".
+define a class "Sample" with a static method "void fun1()"
+
+inside main function create a method reference for "Sixth" and invoke "fun1" of "Sample"
+*/
+package java8;
+
+public class MethodReference {
+	public static void main(String[] args) {
+		
+		MRSixth ms1=MRSample::fun1;
+		ms1.disp5();
+	}
+}
+interface MRSixth{ void disp5(); }
+class MRSample{ public static void fun1() { System.out.println("fun1 Method of Sample Class"); } }
+
+/*//------------------------------------5------------------------------------
+5) define a functional interface "Emp" with an abstract method "void show()".
+define a class "MyClass" with default constructor with the message "inside default constructor of MyClass".
+
+inside main function instantiate "MyClass" using method reference to "Emp"
+*/
+package java8;
+
+public class MethodReference {
+	public static void main(String[] args) {
+		MREmp emp = MRMyClass::new;
+		emp.show();
+		System.out.println();
+		System.out.println(emp.getClass().getName());
+	}
+}
+interface MREmp{ void show(); }
+class MRMyClass{ public MRMyClass() { System.out.println("inside default constructor of MyClass");} }
+
+/*//------------------------------------6------------------------------------
+6) define a functional interface "Seventh" with an abstract method "void fun(int k)".
+define a class "Sample" with parameterized constructor with the message "inside parameterized constructor of Sample\t"+k .
+
+inside main function instantiate "Sample" by passing value "200" using method reference to "Seventh"
+*/
+package java8;
+
+public class MethodReference {
+	public static void main(String[] args) {
+		
+		MRSeventh seventh=MRSample::new;
+		seventh.fun(200);
+		
+	}
+}
+interface MRSeventh{ void fun(int k); }
+class MRSample{ public MRSample(int k) { System.out.println("Inside Parameterized Constructor of Sample \t"+k);} }
+
+/*//------------------------------------7------------------------------------
+7) define a class "Student" with name and age as member variables, parameterized constructor , setters , getters and "toString" method. 
+
+define a functional interface "MyInterface" with an abstract method "void show(Student ref)"
+
+inside main function 
+a) create an instance of "Student" class by passing "Vijay" and '20' values.
+
+b) create method reference for "MyInterface" and display the instance of "Student" class created above.
+*/
+package java8;
+
+public class MethodReference {
+	public static void main(String[] args) {
+		
+		//MRStudent student = new MRStudent("AMOL BHARSAKLE", 7);
+		MRStudent student = new MRStudent("Vijay", 20);
+		MRMyInterface myInterface=System.out::println;
+		myInterface.show(student);
+		
+	}
+}
+interface MRMyInterface{ void show(MRStudent ref); }
+
+class MRStudent{ 
+	
+	String name;
+	int age;
+	
+	public MRStudent(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return "MRStudent [name=" + name + ", age=" + age + "]";
+	}
+}
