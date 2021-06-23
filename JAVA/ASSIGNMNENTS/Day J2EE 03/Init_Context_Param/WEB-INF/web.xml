@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app>
+	<context-param>
+		<param-name>Group</param-name>
+		<param-value>EVOLUTIONARS</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>InitContextParam</servlet-name>
+		<servlet-class>InitContextParam</servlet-class>
+		<init-param>
+			<param-name>Coder</param-name>
+			<param-value>AMOL BHARSAKLE</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitContextParam</servlet-name>
+		<url-pattern>/InitContextParam</url-pattern>
+	</servlet-mapping>
+
+</web-app> 
